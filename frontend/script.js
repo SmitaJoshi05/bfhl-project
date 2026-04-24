@@ -1,34 +1,62 @@
+
+async function fetchWithRetry(url, options, retries = 2) {
+    try {
+        return await fetch(url, options);
+    } catch (err) {
+        if (retries > 0) {
+            await new Promise(r => setTimeout(r, 3000));
+            return fetchWithRetry(url, options, retries - 1);
+        }
+        throw err;
+    }
+}
+
 async function submitData() {
     const input = document.getElementById('input').value;
     const resultDiv = document.getElementById('result');
     const rawDiv = document.getElementById('rawJson');
 
-    resultDiv.innerHTML = "<div class='card'>Processing...</div>";
+    // 🧠 Better loading message
+    resultDiv.innerHTML = `
+        <div class='card'>
+            ⏳ Waking up server (first request may take ~30s)...
+        </div>
+    `;
     rawDiv.innerText = "";
 
     try {
         const data = input.split(',').map(x => x.trim()).filter(x => x);
 
-        const res = await fetch('https://bfhl-project-y68v.onrender.com/bfhl', {
+        const url = "https://bfhl-project-y68v.onrender.com/bfhl";
+
+        const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data })
-        });
+        };
+
+        // 🔁 Use retry instead of direct fetch
+        const res = await fetchWithRetry(url, options);
 
         if (!res.ok) {
-            throw new Error("API error");
+            throw new Error(`API error: ${res.status}`);
         }
 
         const json = await res.json();
 
-        // Render UI
+        // 🎨 Render UI
         renderResult(json);
 
-        // Show raw JSON
+        // 📦 Show raw JSON
         rawDiv.innerText = JSON.stringify(json, null, 2);
 
     } catch (err) {
-        resultDiv.innerHTML = `<div class="card" style="color:red;">Error: ${err.message}</div>`;
+        resultDiv.innerHTML = `
+            <div class="card" style="color:red;">
+                ❌ Error: ${err.message}<br>
+                (If first attempt failed, try again after a few seconds)
+            </div>
+        `;
     }
 }
 
@@ -62,14 +90,22 @@ function renderResult(data) {
     // INVALID
     container.innerHTML += `
         <div class="card">
-            <b>Invalid Entries:</b> ${data.invalid_entries.length ? data.invalid_entries.join(', ') : "None"}
+            <b>Invalid Entries:</b> ${
+                data.invalid_entries.length
+                    ? data.invalid_entries.join(', ')
+                    : "None"
+            }
         </div>
     `;
 
     // DUPLICATES
     container.innerHTML += `
         <div class="card">
-            <b>Duplicate Edges:</b> ${data.duplicate_edges.length ? data.duplicate_edges.join(', ') : "None"}
+            <b>Duplicate Edges:</b> ${
+                data.duplicate_edges.length
+                    ? data.duplicate_edges.join(', ')
+                    : "None"
+            }
         </div>
     `;
 
@@ -85,7 +121,7 @@ function renderResult(data) {
     `;
 }
 
-// Recursive tree renderer
+// 🌳 Recursive tree renderer
 function renderTree(obj) {
     let html = "<div class='tree'>";
 
