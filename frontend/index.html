@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BFHL Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>BFHL Hierarchy Builder</h1>
+
+    <textarea id="input" placeholder="Enter nodes like A->B, B->C"></textarea>
+
+    <button onclick="submitData()">Process</button>
+
+    <!-- Structured Output -->
+    <div id="result"></div>
+
+    <!-- Raw JSON Output -->
+    <h3 style="margin-top:20px;">Raw JSON</h3>
+    <pre id="rawJson"></pre>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
