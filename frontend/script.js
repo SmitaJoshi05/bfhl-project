@@ -9,7 +9,7 @@ async function submitData() {
     try {
         const data = input.split(',').map(x => x.trim()).filter(x => x);
 
-        const res = await fetch('http://localhost:3000/bfhl', {
+        const res = await fetch('https://bfhl-project-y68v.onrender.com/bfhl', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data })
