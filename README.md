@@ -1,6 +1,6 @@
 # BFHL Full Stack Engineering Challenge
 
-## 📌 Overview
+##  Overview
 
 This project implements a full-stack solution for processing hierarchical node relationships via a REST API and visualizing the results through a responsive frontend.
 
@@ -14,14 +14,14 @@ The system accepts node relationships (e.g., `A->B`) and:
 
 ---
 
-## 🚀 Live Demo
+##  Live Demo
 
 * **Frontend (Netlify):** https://venerable-conkies-02d482.netlify.app/
 * **Backend API (Render):** https://bfhl-project-y68v.onrender.com 
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 ### Backend
 
@@ -42,7 +42,7 @@ The system accepts node relationships (e.g., `A->B`) and:
 
 ---
 
-## 📡 API Specification
+##  API Specification
 
 ### Endpoint
 
@@ -62,9 +62,9 @@ POST /bfhl
 
 ```json
 {
-  "user_id": "yourname_ddmmyyyy",
-  "email_id": "your_email@srmist.edu.in",
-  "college_roll_number": "your_roll",
+  "user_id": "name_ddmmyyyy",
+  "email_id": "email@srmist.edu.in",
+  "college_roll_number": "roll",
   "hierarchies": [...],
   "invalid_entries": [...],
   "duplicate_edges": [...],
@@ -74,7 +74,7 @@ POST /bfhl
 
 ---
 
-## 🧠 Core Features
+##  Core Features
 
 ### 1. Input Validation
 
@@ -141,7 +141,7 @@ Provides:
 
 ---
 
-## 🖥 Frontend Features
+##  Frontend Features
 
 * Interactive input field for node data
 * Clean card-based UI for:
@@ -155,16 +155,16 @@ Provides:
 
 ---
 
-## ⚠️ Important Note (Render Cold Start)
+##  Important Note (Render Cold Start)
 
 The backend is hosted on Render (free tier).
 If inactive, the server may sleep.
 
-⏳ First request may take **30–60 seconds** to respond.
+ First request may take **30–60 seconds** to respond.
 
 ---
 
-## 🧪 Sample Test Cases
+##  Sample Test Cases
 
 ### Valid Tree
 
@@ -190,15 +190,11 @@ A->B, A->B, A->B
 hello, 1->2, A->
 ```
 
-### Multi-parent Case
 
-```
-A->D, B->D
-```
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 bfhl-project/
@@ -215,24 +211,7 @@ bfhl-project/
 
 ---
 
-## ⚙️ How to Run Locally
-
-### Backend
-
-```
-cd backend
-npm install
-node server.js
-```
-
-### Frontend
-
-* Open `index.html` in browser
-* Ensure backend is running
-
----
-
-## 🎯 Key Highlights
+##  Key Highlights
 
 * Efficient graph construction and traversal
 * Robust edge-case handling
